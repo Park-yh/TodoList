@@ -86,4 +86,13 @@ public class TodoListService {
                 todoList.getModifiedAt()
         );
     }
+
+    @Transactional
+    public void deleteTodoList(Long todolistsId){
+        boolean b = todoListRepository.existsById(todolistsId);
+        if(!b) {
+            throw new IllegalArgumentException("TodoList not found!");
+        }
+        todoListRepository.deleteById(todolistsId);
+    }
 }

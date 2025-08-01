@@ -41,4 +41,11 @@ public class TodoListController {
         return ResponseEntity.ok(todoListService.updateTodoList(todolistsId, request));
     }
 
+    @DeleteMapping("/todolists/{todolistsId}")
+    public void deleteTodoList(
+            @PathVariable Long todolistsId
+    ) {
+        todoListService.deleteTodoList(todolistsId);
+    }
+
 }
