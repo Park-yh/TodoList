@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -88,11 +87,13 @@ public class TodoListService {
     }
 
     @Transactional
-    public void deleteTodoList(Long todolistsId){
-        boolean b = todoListRepository.existsById(todolistsId);
-        if(!b) {
-            throw new IllegalArgumentException("TodoList not found!");
+    public void deleteTodoList(Long todolistsId, String password){
+        TodoList todoList = todoListRepository.findById(todolistsId).orElseThrow(
+                () -> new IllegalArgumentException("TodoList not found!")
+        );
+        if (!todoList.getPassword().equals(password)) {
+            throw new IllegalArgumentException("Invalid password!");
         }
-        todoListRepository.deleteById(todolistsId);
+        todoListRepository.delete(todoList);
     }
 }

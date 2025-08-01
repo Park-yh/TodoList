@@ -6,6 +6,7 @@ import com.example.todolist.service.TodoListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.example.todolist.dto.PasswordRequest;
 
 import java.util.List;
 
@@ -42,10 +43,12 @@ public class TodoListController {
     }
 
     @DeleteMapping("/todolists/{todolistsId}")
-    public void deleteTodoList(
-            @PathVariable Long todolistsId
+    public ResponseEntity<Void> deleteTodoList(
+            @PathVariable Long todolistsId,
+            @RequestBody PasswordRequest request
     ) {
-        todoListService.deleteTodoList(todolistsId);
+        todoListService.deleteTodoList(todolistsId, request.getPassword());
+        return ResponseEntity.noContent().build();
     }
 
 }
