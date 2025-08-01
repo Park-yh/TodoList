@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class TodoListController {
@@ -18,4 +20,18 @@ public class TodoListController {
             ) {
         return ResponseEntity.ok(todoListService.save(request));
     }
+
+    @GetMapping("/todolists")
+    public ResponseEntity<List<TodoListResponse>> getTodolists(@RequestParam(required = false) String author) {
+        return ResponseEntity.ok(todoListService.findTodolists(author));
+    }
+
+    @GetMapping("/todolists/{todolistsId}")
+    public ResponseEntity<TodoListResponse> getTodolists(
+            @PathVariable Long todolistsId
+    ) {
+        return ResponseEntity.ok(todoListService.findTodolist(todolistsId));
+    }
+
+
 }
