@@ -23,11 +23,9 @@ public class TodoList extends BaseEntity{
         this.password = password;
     }
 
-    public void updateTodoList(String title, String content, String author, String password){
+    public void updateTodoList(String title, String author){
         this.title = title;
-        this.content = content;
         this.author = author;
-        this.password = password;
     }
 
 }

@@ -68,4 +68,22 @@ public class TodoListService {
         );
     }
 
+    @Transactional
+    public TodoListResponse updateTodoList(Long todolistsId, TodoListRequest request) {
+        TodoList todoList = todoListRepository.findById(todolistsId).orElseThrow(
+                () -> new IllegalArgumentException("TodoListsId not found!")
+        );
+        if(!todoList.getPassword().equals(request.getPassword())){
+            throw new IllegalArgumentException("비밀번호가 틀렸습니다!");
+        }
+        todoList.updateTodoList(request.getTitle(), request.getAuthor());
+        return new TodoListResponse(
+                todoList.getId(),
+                todoList.getTitle(),
+                todoList.getContent(),
+                todoList.getAuthor(),
+                todoList.getCreatedAt(),
+                todoList.getModifiedAt()
+        );
+    }
 }

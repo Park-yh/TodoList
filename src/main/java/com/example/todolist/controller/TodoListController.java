@@ -33,5 +33,12 @@ public class TodoListController {
         return ResponseEntity.ok(todoListService.findTodolist(todolistsId));
     }
 
+    @PutMapping("/todolists/{todolistsId}")
+    public ResponseEntity<TodoListResponse> updateTodoList(
+            @PathVariable Long todolistsId,
+            @RequestBody TodoListRequest request
+    ) {
+        return ResponseEntity.ok(todoListService.updateTodoList(todolistsId, request));
+    }
 
 }
