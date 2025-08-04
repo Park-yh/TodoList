@@ -1,12 +1,12 @@
 package com.example.todolist.controller;
 
-import com.example.todolist.dto.TodoListRequest;
-import com.example.todolist.dto.TodoListResponse;
+import com.example.todolist.dto.*;
+import com.example.todolist.service.CommentService;
 import com.example.todolist.service.TodoListService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.todolist.dto.PasswordRequest;
 
 import java.util.List;
 
@@ -14,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TodoListController {
     private final TodoListService todoListService;
+    private final CommentService commentService;
 
     @PostMapping("/todolists")
     public ResponseEntity<TodoListResponse> createTodoList(
@@ -49,6 +50,14 @@ public class TodoListController {
     ) {
         todoListService.deleteTodoList(todolistsId, request.getPassword());
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/todolists/{todolistId}/comments")
+    public ResponseEntity<CommentResponse> createComment(
+            @PathVariable Long todolistId,
+            @RequestBody CommentRequest request
+    ) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(commentService.createComment(todolistId, request));
     }
 
 }
