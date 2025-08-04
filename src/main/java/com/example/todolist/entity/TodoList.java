@@ -18,7 +18,7 @@ public class TodoList extends BaseEntity{
     private String content;
     private String author;
     private String password;
-    @OneToMany(mappedBy = "todoList", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "todoList", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
     public TodoList(String title, String content, String author, String password) {
