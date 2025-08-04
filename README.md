@@ -194,3 +194,7 @@ DELETE /todolists/1
 {
   "password": "1234"
 }
+
+
+[ERD]
+<img width="855" height="215" alt="image" src="https://github.com/user-attachments/assets/c4cbc208-d5bf-4449-98ca-cdc6969b1983" />
