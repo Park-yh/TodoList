@@ -1,5 +1,6 @@
 package com.example.todolist.service;
 
+import com.example.todolist.dto.CommentResponse;
 import com.example.todolist.dto.TodoListRequest;
 import com.example.todolist.dto.TodoListResponse;
 import com.example.todolist.entity.TodoList;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,8 +30,12 @@ public class TodoListService {
                 savedTodoList.getContent(),
                 savedTodoList.getAuthor(),
                 savedTodoList.getCreatedAt(),
-                savedTodoList.getModifiedAt()
-                );
+                savedTodoList.getModifiedAt(),
+                savedTodoList.getComments().stream()
+                        .map(CommentResponse::new)
+                        .collect(Collectors.toList())
+
+        );
     }
 
     @Transactional(readOnly = true)
@@ -47,7 +53,10 @@ public class TodoListService {
                         todoList.getContent(),
                         todoList.getAuthor(),
                         todoList.getCreatedAt(),
-                        todoList.getModifiedAt()
+                        todoList.getModifiedAt(),
+                        todoList.getComments().stream()
+                                .map(CommentResponse::new)
+                                .collect(Collectors.toList())
                 ))
                 .toList();
     }
@@ -63,7 +72,10 @@ public class TodoListService {
                 todoList.getContent(),
                 todoList.getAuthor(),
                 todoList.getCreatedAt(),
-                todoList.getModifiedAt()
+                todoList.getModifiedAt(),
+                todoList.getComments().stream()
+                        .map(CommentResponse::new)
+                        .collect(Collectors.toList())
         );
     }
 
@@ -82,7 +94,10 @@ public class TodoListService {
                 todoList.getContent(),
                 todoList.getAuthor(),
                 todoList.getCreatedAt(),
-                todoList.getModifiedAt()
+                todoList.getModifiedAt(),
+                todoList.getComments().stream()
+                        .map(CommentResponse::new)
+                        .collect(Collectors.toList())
         );
     }
 
